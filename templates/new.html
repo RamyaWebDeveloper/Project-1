@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'new.css')}}">
+</head>
+<body>
+    <div class="container pt-3 pb-2 mt-3" style="width:100%;">
+        <h5 class="text-center"><b>TODO LIST</b></h5>
+    
+
+    {% if data %}
+    {% for a in data %}
+    <form action="" method="post">
+        <div class="container ms-5 mb-3">
+        <input type="text" name="title" value = {{a[1]}} class="flow-control"  style="background-color: bisque;" size="70"
+        class="ms-5 mb-2 p-2 pe-0 fs-4 border rounded-2"><br>
+        </div>
+        <div class="row">
+            <span class="col-8">
+                <textarea name="content"  required rows="5"
+                style="background-color: bisque;" class="col-12 ms-5 p-2 fs-4 border rounded-2">{{a[2]}}</textarea>
+            </span>
+            <span class="col-4 mt-5">
+                <button type="submit" class="btn btn-success p-2 m-3 ms-5">Submit</button>
+                <button type="reset" class="btn btn-dark p-2 ps-3 pe-3 m-3">Reset</button>
+            </span>
+        </div>
+    </form>
+
+    
+    
+    {% endfor %}
+    {% else %}
+    <form action="/" method="post">
+        <input type="text" name="title" placeholder="Title..." required style="background-color: bisque;"
+        class="col-8 ms-5 mb-2 p-2 pe-0 fs-4 border rounded-2"><br>
+
+        <div class="row">
+            <span class="col-8">
+                <textarea name="content" placeholder="Description..." required rows="5"
+                style="background-color: bisque;" class="col-12 ms-5 p-2 fs-4 border rounded-2"></textarea>
+            </span>
+            <span class="col-4 mt-5">
+                <button type="submit" class="btn btn-success p-2 m-3 ms-5">Submit</button>
+                <button type="reset" class="btn btn-dark p-2 ps-3 pe-3 m-3">Reset</button>
+            </span>
+        </div>
+    </form>
+
+    {% endif %}
+    <hr>
+    {% if datas %}
+    {% for data in datas %}
+    <div class="row container m-5 p-2 border border-1 shadow-lg rounded-4"
+    style="width:90%; background-color: bisque;">
+    <span class="col-8">
+        <p class="h2 ps-3">{{data[1]}}</p><hr>
+        <div class="overflow-auto">
+            <p class="fs-4">{{data[2]}}</p>
+        </div>
+    </span>
+    <span class="col-4 mt-5">
+        <span><a href="{{url_for('update', id = data[0])}}" class="btn btn-primary p-2 m-3">Update</a></span>
+        <span><a href="{{url_for('delete', id = data[0])}}" class="btn btn-danger p-2 ps-3 pe-3 m-3 ms-1">Delete</a></span>
+        <div class="row text-center">
+            <i class="fw-bold text-secondary text-start ms-5 mt-2">{{data[3]}} {{data[4]}}</i>
+        </div>
+    </span>
+    </div>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>
